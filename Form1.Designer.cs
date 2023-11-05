@@ -114,6 +114,8 @@
             Text = "Form1";
             ResumeLayout(false);
             PerformLayout();
+
+            textBox1.KeyPress += TextBox1_KeyPress;
         }
 
         #endregion

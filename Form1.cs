@@ -11,19 +11,53 @@ namespace WinFormsApp1
         {
             char[] chars = textBox1.Text.ToCharArray();
 
-            label4.Text = SearchTextIndex(chars, 0).ToString();
+            if (textBox1.Text.Length == 0)
+            {
+                MessageBox.Show("請輸入大寫字母字串");
+            }
+            else
+            {
+                if (textBox2.Text.Length > 0)
+                {
+                    int result = SearchTextIndex(chars, 0);
+                    if (result != -1)
+                    {
+                        label4.Text = result.ToString();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("請輸入搜尋字母");
+                }
+            }
         }
 
 
         private int SearchTextIndex(char[] chars, int index)
         {
-            if (chars[index].ToString() == textBox2.Text)
+            if ((index + 1) > chars.Length)
             {
-                return index;
+                MessageBox.Show("搜尋不到任何相符字元");
+                return -1;
             }
             else
             {
-                return SearchTextIndex(chars, index + 1);
+                if (chars[index].ToString() == textBox2.Text)
+                {
+                    return index;
+                }
+                else
+                {
+                    return SearchTextIndex(chars, index + 1);
+                }
+            }
+        }
+
+        private void TextBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(e.KeyChar >= 65 && e.KeyChar <= 96))
+            {
+                e.Handled = true;
             }
         }
     }
